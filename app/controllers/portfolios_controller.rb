@@ -3,16 +3,14 @@ class PortfoliosController < ApplicationController
   before_action :set_portfolio, only: [:show, :edit,:destroy, :index]
 
   def index
-    render json: Portfolio.all
+    render json: Portfolio.all, include: ['holdings']
   end
 
   def show
-
-    render json: @portfolio
+    render json: @portfolio, include: ['holdings']
   end
 
   def create
-
     # NEED TO SET THIS UP WITH STrong PARAMS?
     # portfolio = Portfolio.new(portfolio_params)
     portfolio = Portfolio.new
