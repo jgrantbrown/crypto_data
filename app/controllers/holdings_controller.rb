@@ -10,6 +10,19 @@ class HoldingsController < ApplicationController
     render json: Holding.find_by(id: params[:id])
   end
 
+  def create
+
+    @portfolio = Portfolio.find(params[:portfolio_id])
+    @portfolio.holdings.build(holding_params)
+    if @portfolio.save
+      render json: @portfolio, include: ['holdings']
+    else
+      render json: { message: portfolio.errors}, status: 400
+    end
+  end
+
+
+
 private
 
   def set_holding
